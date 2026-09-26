@@ -1,0 +1,80 @@
+# ================================
+# .NET / C# / Visual Studio
+# ================================
+
+# Build output
+bin/
+obj/
+out/
+artifacts/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# JetBrains / Rider
+.idea/
+*.sln.iml
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# .NET project files
+project.lock.json
+project.fragment.lock.json
+
+# ================================
+# Environment / Secrets
+# ================================
+
+.env
+.env.*
+!.env.example
+
+# Local configuration
+appsettings.Development.json
+appsettings.Local.json
+
+# ================================
+# Logs / Temporary files
+# ================================
+
+*.log
+*.tmp
+*.temp
+*.bak
+
+# ================================
+# Tests / Coverage
+# ================================
+
+TestResults/
+*.trx
+coverage/
+coverage.opencover.xml
+*.coverage
+*.coveragexml
+
+# ================================
+# Databases
+# ================================
+
+*.db
+*.sqlite
+*.sqlite3
+
+# ================================
+# Operating System
+# ================================
+
+.DS_Store
+Thumbs.db
+desktop.ini

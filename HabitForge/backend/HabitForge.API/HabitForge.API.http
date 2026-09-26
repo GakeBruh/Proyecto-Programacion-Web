@@ -1,0 +1,6 @@
+@HabitForge.API_HostAddress = http://localhost:5007
+
+GET {{HabitForge.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

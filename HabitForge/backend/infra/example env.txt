@@ -1,0 +1,3 @@
+POSTGRES_USER=tuusuerio
+POSTGRES_PASSWORD=tucontraseña
+POSTGRES_DB=basededatos
