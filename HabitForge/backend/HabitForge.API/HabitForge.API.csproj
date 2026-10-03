@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HabitForge.Application\HabitForge.Application.csproj" />
     <ProjectReference Include="..\HabitForge.Infrastructure\HabitForge.Infrastructure.csproj" />
+    <ProjectReference Include="..\HabitForge.Domain\HabitForge.Domain.csproj" />
   </ItemGroup>
 
 </Project>
