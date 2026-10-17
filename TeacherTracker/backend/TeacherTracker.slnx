@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="TeacherTracker.API/TeacherTracker.API.csproj" />
+  <Project Path="TeacherTracker.Application/TeacherTracker.Application.csproj" />
+  <Project Path="TeacherTracker.Domain/TeacherTracker.Domain.csproj" />
+  <Project Path="TeacherTracker.Infrastructure/TeacherTracker.Infrastructure.csproj" />
+</Solution>
+
