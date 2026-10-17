@@ -14,6 +14,6 @@ public class HabitoRepository : IHabitoRepository {
     }
 
     public async Task<IEnumerable<HabitoGlobal>> GetAllAsync() {
-        return await _context.HabitosGlobales.ToListAsync(); // Consulta real a BD (Magia SQL)
+        return await _context.HabitosGlobales.ToListAsync(); 
     }
 }

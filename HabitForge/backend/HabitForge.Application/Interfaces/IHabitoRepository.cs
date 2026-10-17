@@ -12,12 +12,11 @@ public class HabitosController : ControllerBase {
     public HabitosController(IHabitoRepository repository) {
         _repository = repository; 
     }
-
-
+    
     [HttpGet]
     public async Task<IActionResult> GetHabitos() {
         var habitos = await _repository.GetAllAsync();
-        return Ok(habitos); // HTTP 200 OK
+        return Ok(habitos); 
     }
     
     [HttpPost]
@@ -25,10 +24,38 @@ public class HabitosController : ControllerBase {
         if (string.IsNullOrWhiteSpace(habito.Nombre)) {
             return BadRequest("El nombre del hábito es obligatorio."); // HTTP 400 Bad Request
         }
-
+        
         var nuevoHabito = await _repository.AddAsync(habito);
         
-        // HTTP 201 Created: Devuelve el recurso recién creado por cortesía RESTful
         return CreatedAtAction(nameof(GetHabitos), new { id = nuevoHabito.Id }, nuevoHabito);
     }
+    
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> ActualizarHabito(int id, [FromBody] UpdateHabitoRequestDto request) {
+        var habito = await _repository.GetByIdAsync(id);
+        if (habito is null) {
+            return NotFound(); 
+        }
+
+        var validation = await _updateValidator.ValidateAsync(request);
+        if (!validation.IsValid) {
+            return ValidationProblem(new ValidationProblemDetails(validation.ToDictionary())); // HTTP 400
+        }
+
+        habito.Nombre = request.Nombre;
+        await _repository.UpdateAsync(habito);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> EliminarHabito(int id) {
+        var delete = await _repository.DeleteAsync(id);
+        if (!delete) {
+            return NotFound();
+        }
+
+        return Message("Eliminado con exito"); 
+    }    
+    
 }

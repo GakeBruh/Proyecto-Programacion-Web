@@ -11,6 +11,7 @@ namespace HabitForge.API.Controllers;
 public class HabitosController : ControllerBase {
     private readonly IHabitoRepository _repository;
     private readonly IValidator<CreateHabitoRequestDto> _validator;
+    private readonly IValidator<UpdateHabitoRequestDto> _validatorUpdate;
 
     public HabitosController(IHabitoRepository repository, IValidator<CreateHabitoRequestDto> validator) {
         _repository = repository;
@@ -21,7 +22,6 @@ public class HabitosController : ControllerBase {
     public async Task<IActionResult> GetHabitos() {
         var habitos = await _repository.GetAllAsync();
         
-        // Mapeo Manual: Entidad -> DTO
         var response = habitos.Select(h => new HabitoResponseDto {
             Id = h.Id,
             Nombre = h.Nombre
@@ -34,7 +34,7 @@ public class HabitosController : ControllerBase {
     public async Task<IActionResult> CrearHabito([FromBody] CreateHabitoRequestDto request) {
         var validationResult = await _validator.ValidateAsync(request);
         if (!validationResult.IsValid) {
-            return BadRequest(validationResult.Errors); // HTTP 400 automático con detalles
+            return BadRequest(validationResult.Errors);
         }
         
         var nuevoHabito = new HabitoGlobal {
@@ -51,5 +51,36 @@ public class HabitosController : ControllerBase {
 
         return CreatedAtAction(nameof(GetHabitos), new { id = response.Id }, response);
     }
+    
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetById(int:id)
+    {
+        var habito = await _repository.GetByIdAynce(id);
+        if (habito is null)
+        {
+            return NotFound();
+        }
+        
+        return OK(habito);
+    }
+
+    [HtppPut]
+    public async Task<IActionResult> Update(int id, UpdateHabitoRequestDto request) {
+        var habito = await _repository.GetByIdAsync(id);
+        if (habito is null)
+        {
+            return NotFound();
+        }
+        
+        var validation = await _updateValidator.ValidateAsync(request);
+        if (!validation.IsValid) {
+            return BadRequest(validationResult.Errors);
+        }
+        habito.Nombre = request.Nombre
+            await _repository.UpdateAsync(habito);
+            return CreatedAtAction(nameof(GetHabitos), new { id = response.Id }, response);
+    }
+    
+    
 }    
 
